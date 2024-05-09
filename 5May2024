@@ -1,0 +1,39 @@
+
+ 
+class Solution{
+    class pair{
+        Node node;
+        int line;
+        pair(Node node, int line){
+            this.node=node;
+            this.line=line;
+        }
+    }
+    public ArrayList <Integer> verticalSum(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        Map<Integer,Integer> map = new TreeMap<>();
+        Queue<pair> q = new LinkedList<>();
+        q.add(new pair(root,0));
+        while(!q.isEmpty()){
+            Node cur = q.peek().node;
+            int l = q.peek().line;
+            q.poll();
+            if(cur.left != null){
+                q.add(new pair(cur.left,l-1));
+            }
+            if(cur.right != null){
+                q.add(new pair(cur.right,l+1));
+            }
+            if(map.containsKey(l)){
+                map.put(l,map.get(l)+cur.data);
+            }else{
+                map.put(l,cur.data);
+            }
+        }
+        for(Map.Entry<Integer,Integer> e:map.entrySet()){
+            ans.add(e.getValue());
+        }
+        return ans;
+        
+    }
+}
