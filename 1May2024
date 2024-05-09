@@ -1,0 +1,35 @@
+
+
+
+class Solution {
+    
+    public Node arrangeCV(Node head){
+        //write code here and return the head of changed linked list
+        Node vowelhead = new Node('#');
+        Node v = vowelhead;
+        Node conshead = new Node('*');
+        Node c = conshead;
+        Node t = head;
+        Set<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+        while(t!=null){
+            if(set.contains(t.data)){
+                Node newnode = new Node(t.data);
+                v.next = newnode;
+                v=v.next;
+            }else{
+                Node newnode = new Node(t.data);
+                c.next = newnode;
+                c=c.next;
+            }
+            t=t.next;
+        }
+        v.next = conshead.next;
+        conshead.next = null;
+        return vowelhead.next; 
+    }
+}
