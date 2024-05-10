@@ -1,0 +1,35 @@
+
+
+// User function Template for Java
+
+class Solution {
+    // boolean[] vis;
+    void solve(int[] arr,int i, int k, List<List<Integer>> set, List<Integer> t){
+        if (k<0) {
+            return;
+        }
+        if (k == 0) {
+            set.add(new ArrayList<>(t));
+            return;
+        }
+        for(int idx = i;idx<arr.length;idx++){
+            if(idx>i && arr[idx] == arr[idx-1]){
+                continue;
+            }
+            t.add(arr[idx]);
+            solve(arr, idx + 1, k-arr[idx], set, t);
+            t.remove(t.size() - 1);
+        }
+        
+    }
+    public List<List<Integer>> CombinationSum2(int arr[], int n, int k) {
+        Arrays.sort(arr);
+        // HashSet<List<Integer>> set = new HashSet<>();
+        // vis = new boolean[n];
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> t = new ArrayList<>();
+        solve(arr,0,k,ans,t);
+        
+        return ans;
+    }
+}
